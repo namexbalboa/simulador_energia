@@ -48,33 +48,35 @@
         }
       }
 
-
       window.addEventListener('load', carregarEstados);
-      // window.addEventListener('load', carregarDistribuidoras);
     </script>
   </head>
   <body>
-    <form >
-      <section class="section-top ">
-        <div class="container rounded d-flex bg-white justify-content-center align-items-center">
+    <form id="formSimulacao">
+      <section class="section-top">
+        <div class="container rounded d-flex bg-white justify-content-center align-items-center radiusContainer">
           <div class="col-md-8 d-flex flex-column align-items-center" id="">
             <h2 id="title">Simule sua economia com a Poupp!</h2>
             <hr id="line"/>
             <div class="input-group mb-3 justify-content-evenly align-items-center">
               <div class="radio">
-                  <input id="radio-1" name="radio" type="radio" checked>
+                  <input id="radio-1" name="radio" type="radio" value="0" checked>
                   <label for="radio-1" class="radio-label">Para minha empresa</label>
               </div>
               <div class="radio">
-                  <input id="radio-2" name="radio" type="radio">
+                  <input id="radio-2" name="radio" type="radio" value="1">
                   <label  for="radio-2" class="radio-label">Para minha casa</label>
               </div>
             </div>
             <p class="singleTitle">Quanto você paga aproximadamente na conta de luz por mês?</p>
             <div class="input-group mb-3 justify-content-center align-items-center">
-              <button id="decrement" type="button"><b>-</b></button>
+              <button id="decrement" type="button">
+                <img src="./img/menos.svg" id="decrementIcon" height=30 alt="Menor Valor">
+              </button>
               <span id="reais">R$</span> <span id="number">100</span>
-            <button id="increment" type="button"><b>+</b></button>
+            <button id="increment" type="button">
+              <img src="./img/mais.svg" id="incrementIcon" height=30 alt="Maior Valor">
+            </button>
           </div>
           <input type="range" id="range" oninput="progressScript()" value="100" min="100" max="10000"/>      
           <br/>
@@ -93,16 +95,44 @@
           <br/>
           <ul class="list-inline d-flex justify-content-evenly">
             <li class="list-inline-item">
-                <img src="./img/pa.svg" alt="Descrição da imagem 1"> Sem burocracia para fazer a troca!
+              <div class="row">
+                <div class="col-md-2">
+                  <img src="./img/pa.svg" height="30" alt="Sem burocracia"> 
+                </div>
+                <div class="col-md-10">
+                  <span>Sem burocracia para fazer a troca!</span>
+                </div>
+              </div>
             </li>
             <li class="list-inline-item">
-                <img src="./img/raio.svg" alt="Descrição da imagem 2"> Sem perda de qualidade!
+              <div class="row">
+                <div class="col-md-2">
+                  <img src="./img/raio.svg" alt=" Sem perda de qualidade">
+                </div>
+                <div class="col-md-10">
+                  <span>Sem perda de qualidade!</span>
+                </div>
+              </div>
             </li>
             <li class="list-inline-item">
-                <img src="./img/dinheiro.svg" alt="Descrição da imagem 3"> Economia sem investimentos ou obras!
+              <div class="row">
+                <div class="col-md-2">
+                  <img src="./img/dinheiro.svg" alt="Economia">
+                </div>
+                <div class="col-md-10">
+                  <span>Economia sem investimentos ou obras!</span>
+                </div>
+              </div>
             </li>
             <li class="list-inline-item">
-                <img src="./img/no_raio.svg" alt="Descrição da imagem 3"> Sem risco de ficar sem energia!
+              <div class="row">
+                <div class="col-md-2">
+                  <img src="./img/no_raio.svg" alt="Sem risco"> 
+                </div>
+                <div class="col-md-10">
+                  <span>Sem risco de ficar sem energia!</span>
+                </div>
+              </div>
             </li>
           </ul>
           <hr id="line"/>
@@ -122,22 +152,22 @@
 
           <label class="centerText">Preencha seu e-mail ou telefone</label>
           <label class="labelCustom" id="basic-addon1">E-mail</label>
-          <input type="text" class="form-control" placeholder="email@exemplo.com.br" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="email@exemplo.com.br" id="email" aria-label="Username" aria-describedby="basic-addon1">
 
           <label class="labelCustom" id="basic-addon2">Telefone</label>
-          <input type="text" class="form-control" placeholder="(00) 0000 - 0000" aria-label="Username" aria-describedby="basic-addon1" oninput="mascaraTelefone(event)" >
+          <input type="text" class="form-control" placeholder="(00) 0000 - 0000" aria-label="Username" id="telefone" aria-describedby="basic-addon1" oninput="mascaraTelefone(event)" >
 
           <div class="row">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" value="" id="checkMarketing">
+              <label class="form-check-label-mkt" for="flexCheckDefault">
                 Aceito receber comunicações da Poupp Energia
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <input class="form-check-input" type="checkbox" value="" id="checkTermo">
               <label class="form-check-label" for="flexCheckChecked">
-                Concordo com a <b><a href="https://google.com" style="color:#015451;">Política de Privacidade</a></b>
+                Concordo com a <b><a href="https://poupp.com.br/privacidade" style="color:#015451;">Política de Privacidade</a></b>
               </label>
             </div>
           </div>
@@ -156,7 +186,11 @@
       const slider = document.getElementById("range");
       const formulario = document.getElementById("meuFormulario");
       const email = document.getElementById("email");
-            
+      const telefone = document.getElementById("telefone");
+      const distribuidoraTarget = document.getElementById("distribuidoras");
+      const checkboxMkt = document.getElementById("checkMarketing");
+      const checkboxTerm = document.getElementById("checkTermo");
+      
       function progressScript() {
         const sliderValue = slider.value;
         const maxValue = 10000;
@@ -251,7 +285,7 @@
       selectElement.addEventListener("change", function() {
         const estadoSelecionado = selectElement.value; 
 
-        fetch(`https://hml-poupp-api.angellira.com.br/portal/v1/DistributionCompany/state?state=${estadoSelecionado}`, {
+        fetch(`https://hml-poupp-api.angellira.com.br/portal/v1/DistributionCompany/state/${estadoSelecionado}`, {
             headers: {
                 'Origin': 'localhost',
                 'X-Requested-With': 'XMLHttpRequest'
@@ -284,17 +318,74 @@
             alert('Erro ao carregar distribuidoras. Verifique o console para mais detalhes.');
         });
       });
-      
+
       $("#postButton").click(function() {
+        const radioData = $("input[type='radio'][name='radio']:checked").val();
+        const ufData = selectElement.value;     
+        const distData = distribuidoraTarget.value;
+        const valorData = numberDisplay.textContent;
+        const emailData = email.value;
+        const telefoneData = telefone.value;
+        const checkboxMData = checkboxMkt.checked;
+        const checkboxTData = checkboxTerm.checked;
+
+        if(!ufData) {
+          alert('Por favor, selecione um Estado.');
+          return;
+        }
+
+        if(!distData) {
+          alert('Por favor, selecione uma distribuidora.');
+          return;
+        }
+
+        if(!validarEmail(emailData)) {
+          alert('Por favor, insira um email válido.');
+          return;
+        }
+
+        if(telefoneData.length < 14) {
+          alert('Por favor, insira um telefone válido.');
+          return;
+        }
+
+        if(!checkboxTData) {
+          alert('Por favor, aceite os termos de privacidade.');
+          return;
+        }
+
+        const objPost = { 
+          email: emailData,
+          phone: telefoneData.replace(/[\s-]/g, ''),
+          distributionCompanyId: parseInt(distData, 10), 
+          personType: parseInt(radioData, 10),          
+          status: 1,
+          value: parseInt(valorData)      
+        };
+
         $.ajax({
-          url: "seu_endpoint_aqui",  
+          url: "https://hml-poupp-api.angellira.com.br/portal/v1/Simulation",
           method: "POST",
-          data: { number: currentValue }, 
-          success: function(response) {
-            alert("Requisição POST bem-sucedida! Resposta do servidor: " + response);
+          headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/json"
           },
-          error: function() {
-            console.log("Erro na requisição POST.");
+          data: JSON.stringify(objPost), 
+          success: function(response) { 
+            alert("Simulation successful! Details: " + JSON.stringify(response, null, 2)); 
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 400) { 
+              const responseJson = JSON.parse(jqXHR.responseText);
+              if (responseJson.errors && responseJson.errors.$) {
+                alert("Invalid input: " + responseJson.errors.$.join(", "));
+              } else {
+                alert("Simulation failed due to invalid input. Please check your data.");
+              }
+            } else {
+              alert("An error occurred during the simulation. Please try again later.");
+            }
           }
         });
       });
