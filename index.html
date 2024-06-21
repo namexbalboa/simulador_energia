@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Simulação Poupp</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script>
+
+      async function carregarEstados() {
+        try {
+          fetch('https://hml-poupp-api.angellira.com.br/portal/v1/State', {
+              headers: {
+                  'Origin': 'localhost',
+                  'X-Requested-With': 'XMLHttpRequest'
+              }
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+              }
+              return response.json();
+          })
+          .then(dados => {
+              const selectEstados = document.getElementById('estados');
+              selectEstados.innerHTML = ''; 
+
+              const FirstOption = document.createElement('option');
+              FirstOption.value = '';
+              FirstOption.text = 'Selecione uma opção';
+              selectEstados.add(FirstOption);
+
+              for (const state of dados) {
+                const option = document.createElement('option');
+                option.value = state.abbreviation;  
+                option.text = state.name;  
+                selectEstados.add(option);
+              }
+          })
+          .catch(error => {
+              console.error('Erro ao carregar estados:', error);
+              alert('Erro ao carregar estados. Verifique o console para mais detalhes.');
+          });
+        } catch (error) {
+            console.error('Erro inesperado:', error);
+            alert('Ocorreu um erro inesperado. Verifique o console para mais detalhes.');
+        }
+      }
+
+
+      window.addEventListener('load', carregarEstados);
+      // window.addEventListener('load', carregarDistribuidoras);
+    </script>
+  </head>
+  <body>
+    <form >
+      <section class="section-top ">
+        <div class="container rounded d-flex bg-white justify-content-center align-items-center">
+          <div class="col-md-8 d-flex flex-column align-items-center" id="">
+            <h2 id="title">Simule sua economia com a Poupp!</h2>
+            <hr id="line"/>
+            <div class="input-group mb-3 justify-content-evenly align-items-center">
+              <div class="radio">
+                  <input id="radio-1" name="radio" type="radio" checked>
+                  <label for="radio-1" class="radio-label">Para minha empresa</label>
+              </div>
+              <div class="radio">
+                  <input id="radio-2" name="radio" type="radio">
+                  <label  for="radio-2" class="radio-label">Para minha casa</label>
+              </div>
+            </div>
+            <p class="singleTitle">Quanto você paga aproximadamente na conta de luz por mês?</p>
+            <div class="input-group mb-3 justify-content-center align-items-center">
+              <button id="decrement" type="button"><b>-</b></button>
+              <span id="reais">R$</span> <span id="number">100</span>
+            <button id="increment" type="button"><b>+</b></button>
+          </div>
+          <input type="range" id="range" oninput="progressScript()" value="100" min="100" max="10000"/>      
+          <br/>
+          <p class="substring">A partir de R$ 100,00</p>
+          <div id="card">
+            <div class="card-content">
+                <h5 class="card-title">Você pode economizar até</h5>
+                <div class="savings-amount">
+                  <span class="unit">R$</span>
+                  <span class="unit" id="discountYear">240,00</span>
+                  <span class="card-title">por ano</span>
+                </div>
+                <p class="monthly-savings">ou <b>R$ <span id="discountMonth"> 20,00</span></b> por mês</p>
+            </div>
+          </div>
+          <br/>
+          <ul class="list-inline d-flex justify-content-evenly">
+            <li class="list-inline-item">
+                <img src="./img/pa.svg" alt="Descrição da imagem 1"> Sem burocracia para fazer a troca!
+            </li>
+            <li class="list-inline-item">
+                <img src="./img/raio.svg" alt="Descrição da imagem 2"> Sem perda de qualidade!
+            </li>
+            <li class="list-inline-item">
+                <img src="./img/dinheiro.svg" alt="Descrição da imagem 3"> Economia sem investimentos ou obras!
+            </li>
+            <li class="list-inline-item">
+                <img src="./img/no_raio.svg" alt="Descrição da imagem 3"> Sem risco de ficar sem energia!
+            </li>
+          </ul>
+          <hr id="line"/>
+          <img src="./img/logo_poupp.svg" alt="Logo Poupp">
+
+          <h2 id="title">Verifique a disponibilidade!</h2>
+          <label class="centerText" for="estados">Selecione o seu estado.</label>
+          <select class="form-select" id="estados">
+            <option selected>Selecione uma opção</option>
+          </select>
+
+          <label class="centerText" for="distribuidoras">Selecione uma distribuidora.</label>
+          <select class="form-select" id="distribuidoras">
+            <option selected>Selecione uma opção</option>
+          </select>
+          <label class="substring">A distribuidora é a empresa que aparece na sua fatura de energia.</label>
+
+          <label class="centerText">Preencha seu e-mail ou telefone</label>
+          <label class="labelCustom" id="basic-addon1">E-mail</label>
+          <input type="text" class="form-control" placeholder="email@exemplo.com.br" aria-label="Username" aria-describedby="basic-addon1">
+
+          <label class="labelCustom" id="basic-addon2">Telefone</label>
+          <input type="text" class="form-control" placeholder="(00) 0000 - 0000" aria-label="Username" aria-describedby="basic-addon1" oninput="mascaraTelefone(event)" >
+
+          <div class="row">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Aceito receber comunicações da Poupp Energia
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Concordo com a <b><a href="https://google.com" style="color:#015451;">Política de Privacidade</a></b>
+              </label>
+            </div>
+          </div>
+
+          <br/>
+          <button class="btnCustom" id="postButton" type="button">Verificar disponibilidade</button>
+        </div>
+      </section>
+    </form>
+    <script>
+      const numberDisplay = document.getElementById("number");
+      const discountYear = document.getElementById("discountYear");
+      const discountMonth = document.getElementById("discountMonth");
+      const decrementButton = document.getElementById("decrement");
+      const incrementButton = document.getElementById("increment");
+      const slider = document.getElementById("range");
+      const formulario = document.getElementById("meuFormulario");
+      const email = document.getElementById("email");
+            
+      function progressScript() {
+        const sliderValue = slider.value;
+        const maxValue = 10000;
+        const percentage = (sliderValue / maxValue) * 100;
+        slider.style.background = `linear-gradient(to right, #00ee80 ${percentage}%, #ccc ${percentage}%)`;
+      }
+      
+      progressScript()
+      
+      let currentValue = 100;
+      
+      function formatToReais(value) {
+        const valorFormatado = value.toFixed(2).replace(".", ",");
+        const partes = valorFormatado.split(",");
+        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return partes.join(",");
+      }
+
+      function updateDisplay() {
+        numberDisplay.textContent = currentValue;
+        slider.value = currentValue;
+
+        if (currentValue <= 7000) {
+          const discValueYear = ((currentValue * 12) / 100) * 20;
+          const discValueMonth = (currentValue / 100) * 20;
+          discountYear.textContent = formatToReais(discValueYear);
+          discountMonth.textContent = formatToReais(discValueMonth);
+        } else {
+          const discValueYear = ((currentValue * 12) / 100) * 40;
+          const discValueMonth = (currentValue / 100) * 40;
+          discountYear.textContent = formatToReais(discValueYear);
+          discountMonth.textContent = formatToReais(discValueMonth);
+        }
+      }
+
+      function validarEmail(email) {
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (regexEmail.test(email)) {
+          return true; 
+        } else {
+          return false;
+        }
+      }
+      
+      decrementButton.addEventListener("click", () => {
+          if (currentValue === 100) return;
+          currentValue--;
+          updateDisplay();
+      });
+      
+      incrementButton.addEventListener("click", () => {
+          currentValue++;
+          updateDisplay();
+      });
+      
+      slider.addEventListener("input", () => {
+        currentValue = parseInt(slider.value);
+        updateDisplay();
+      });
+
+      // formulario.addEventListener("submit", function(event) {
+      //   if (!validarEmail(campoEmail.value)) {
+      //     event.preventDefault();
+      //     alert("Por favor, insira um email válido.");
+      //   }
+      // });
+
+      function mascaraTelefone(event) {
+        let input = event.target;
+        let valor = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        // Limita o número de caracteres a 15
+        if (valor.length > 11) {
+          valor = valor.slice(0, 11); // Mantém apenas os primeiros 11 dígitos
+        }
+
+        let novoValor = '';
+        if (valor.length > 0) {
+          novoValor = '(' + valor;
+        }
+        if (valor.length > 2) {
+          novoValor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2);
+        }
+        if (valor.length > 7) {
+          novoValor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2, 7) + '-' + valor.slice(7);
+        }
+
+        input.value = novoValor;
+      }
+
+      const selectElement = document.getElementById("estados");
+      selectElement.addEventListener("change", function() {
+        const estadoSelecionado = selectElement.value; 
+
+        fetch(`https://hml-poupp-api.angellira.com.br/portal/v1/DistributionCompany/state?state=${estadoSelecionado}`, {
+            headers: {
+                'Origin': 'localhost',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(dados => {
+            const selectDistribuidoras = document.getElementById('distribuidoras');
+            selectDistribuidoras.innerHTML = ''; 
+
+            const FirstOption = document.createElement('option');
+            FirstOption.value = '';
+            FirstOption.text = 'Selecione uma opção';
+            selectDistribuidoras.add(FirstOption);
+
+            for (const distribuidora of dados) {
+              const option = document.createElement('option');
+              option.value = distribuidora.id; 
+              option.text = distribuidora.description; 
+              selectDistribuidoras.add(option);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar distribuidoras:', error);
+            alert('Erro ao carregar distribuidoras. Verifique o console para mais detalhes.');
+        });
+      });
+      
+      $("#postButton").click(function() {
+        $.ajax({
+          url: "seu_endpoint_aqui",  
+          method: "POST",
+          data: { number: currentValue }, 
+          success: function(response) {
+            alert("Requisição POST bem-sucedida! Resposta do servidor: " + response);
+          },
+          error: function() {
+            console.log("Erro na requisição POST.");
+          }
+        });
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

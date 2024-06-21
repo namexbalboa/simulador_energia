@@ -1,0 +1,328 @@
+@font-face {
+    font-family: 'Centrale Sans Bold', sans-serif;
+    src: url('https://fonts.cdnfonts.com/css/centrale-sans-bold');
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.section-top {
+    background: linear-gradient(to right, #013837, #017A51);
+    height: auto;
+    padding: 20px 0;
+}
+
+.radio-label {
+    font-family: 'Centrale Sans', sans-serif;
+    font-weight: 400;
+    color: #1E1E1E;
+    font-size: 14px;
+}
+
+.singleTitle {
+    font-family: 'Centrale Sans', sans-serif;
+    font-weight: 600;
+    color: #1E1E1E;
+    font-size: 16px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none; 
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    height: 5px;
+    background: #ccc;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    border-radius: 20px;
+    border: 6px solid white;
+    border-color: #00ee80;
+    height: 24px;
+    width: 24px;
+    transition: .2s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: #00ee80;
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+}
+
+/* Hover, active & focus Thumb: Webkit */
+input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(50,168,82, .1)
+}
+input[type="range"]:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(50,168,82, .2)
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(50,168,82, .2)
+}
+
+/* Hover, active & focus Thumb: Firefox */
+input[type="range"]::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(50,168,82, .1)
+}
+input[type="range"]:active::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(50,168,82, .2)
+}
+input[type="range"]:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(50,168,82, .2)    
+}
+
+#title {
+    font-family: 'Centrale Sans Bold', sans-serif;
+    font-weight: 700;
+    color: #013837;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+#line {
+    width: 100%;
+    border: 1px solid #D3CCB5;
+}
+
+#increment {
+    background-color: #00ee80;
+    color: #013837;
+    border: 1px solid #013837;      
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+#decrement {
+    background-color: white;
+    color: #013837;
+    border: 1px solid #013837;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+#increment:hover {
+    background-color: rgba(0, 238, 128, 0.9);
+    box-shadow: 0 0 0 10px rgba(50,168,82, .1);
+}
+
+#decrement:hover {
+    background-color: rgba(0, 238, 128, 0.2);
+    box-shadow: 0 0 0 10px rgba(50,168,82, .1);
+}
+
+#number, #reais {
+    padding: 0% 1%;
+    font-size: 30px;
+    color: darkslategray;
+    background-color: white;
+}
+
+.radio {
+    margin: 0.5rem;
+    input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    + .radio-label {
+        &:before {
+        content: '';
+        background: white;
+        border-radius: 100%;
+        border: 1px solid #013837;
+        display: inline-block;
+        width: 1.4em;
+        height: 1.4em;
+        position: relative;
+        margin-right: 0.5em; 
+        vertical-align: top;
+        cursor: pointer;
+        text-align: center;
+        transition: all 250ms ease;
+        }
+    }
+    &:checked {
+        + .radio-label {
+        &:before {
+            background-color: #FFF;
+            box-shadow: inset 0 0 0 6px #013837;
+        }
+        }
+    }
+    &:focus {
+        + .radio-label {
+        &:before {
+            outline: none;
+            border-color: #00ee80;
+        }
+        }
+    }
+    + .radio-label {
+        &:empty {
+        &:before {
+            margin-right: 0;
+        }
+        }
+    }
+    }
+}
+
+#card {
+    background-color: #A8FF44;
+    width: 100%;
+    padding-top: 20px;
+    margin: 20px;
+    border-radius: 25px;
+    display: flex;       
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.substring {
+    font-size: 14px;
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 400;
+    color: #686868;
+}
+
+.card-content {
+    text-align: center; 
+}
+
+.card-title {
+    font-size: 20px;
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 400;
+    color: #013837;
+}
+
+.unit {
+    font-size: 40px;
+    font-family: "Centrale Sans Bold", sans-serif;
+    font-weight: 800;
+    color: #013837;
+}
+
+.savings-amount {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.monthly-savings {
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.list-inline {
+    justify-content: space-between;
+}
+
+.list-inline-item {
+    margin-right: 20px;
+}
+
+.bi {
+    margin-right: 5px; 
+}
+
+.section-bottom {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.centerText {
+    text-align: center;
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1E1E1E;
+    padding: 30px 0;
+}
+
+.form-select {
+    height: 60px; 
+    font-family: "Centrale Sans", sans-serif;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    height: 60px; 
+    font-family: "Centrale Sans", sans-serif;
+    margin-bottom: 20px;
+}
+
+.labelCustom {
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #636363;
+    align-self: flex-start;
+    padding: 10px 0;
+}
+
+.form-check {
+    padding-left: 10px;
+}
+
+.form-check-input {
+    width: 24px !important;
+    height: 24px !important;
+}
+  
+.form-check-input:checked {
+    background-color: #015451 !important;
+    border-color: #015451 !important; 
+}
+  
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25) !important; 
+}
+  
+.form-check-label {
+    font-family: "Centrale Sans", sans-serif !important;
+    color: #015451;
+    font-size: 18px !important; 
+    padding-left: 15px;
+    margin-top: 3px;
+}
+
+#postButton {
+    background-color: #00EE80;
+    color: #013837;
+    border: 0px solid transparent;
+    border-radius: 50px;
+    width: 100%;
+    height: 50px;
+    font-family: "Centrale Sans", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 20px 0;
+    cursor: pointer;
+}
