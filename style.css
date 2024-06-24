@@ -1,5 +1,7 @@
+@import url('https://fonts.cdnfonts.com/css/centrale-sans-regular');
+
 @font-face {
-    font-family: 'Centrale Sans Bold';
+    font-family: 'Centrale Sans Regular';
     src: url('https://fonts.cdnfonts.com/css/centrale-sans-bold');
 }
 
@@ -25,14 +27,14 @@ body {
 }
 
 .radio-label {
-    font-family: 'Centrale Sans';
+    font-family: 'Centrale Sans Regular';
     font-weight: 400;
     color: #1E1E1E;
     font-size: 14px;
 }
 
 .singleTitle {
-    font-family: 'Centrale Sans';
+    font-family: 'Centrale Sans Regular';
     font-weight: 600;
     color: #1E1E1E;
     font-size: 16px;
@@ -93,7 +95,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 #title {
-    font-family: 'Centrale Sans Bold';
+    font-family: 'Centrale Sans Regular';
     font-weight: 700;
     color: #013837;
     font-size: 30px;
@@ -112,7 +114,7 @@ input[type="range"]:focus::-moz-range-thumb {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    margin: 0px 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 
@@ -129,7 +131,7 @@ input[type="range"]:focus::-moz-range-thumb {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 
@@ -148,7 +150,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 #number, #reais {
-    padding: 0% 0.5%;
+    padding: 0% 1%;
     font-size: 30px;
     color: #1E1E1E;
     background-color: white;
@@ -217,7 +219,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .substring {
     font-size: 14px;
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 400;
     color: #686868;
 }
@@ -228,14 +230,14 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .card-title {
     font-size: 20px;
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 400;
     color: #013837;
 }
 
 .unit {
     font-size: 40px;
-    font-family: "Centrale Sans Bold";
+    font-family: "Centrale Sans Regular";
     font-weight: 800;
     color: #013837;
 }
@@ -246,7 +248,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 .monthly-savings {
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 400;
     font-size: 18px;
 }
@@ -257,6 +259,9 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .list-inline-item {
     margin-right: 20px;
+    font-family: "Centrale Sans Regular";
+    font-weight: 400;
+    font-size: 18px;
 }
 
 .bi {
@@ -272,7 +277,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .centerText {
     text-align: center;
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 600;
     font-size: 16px;
     color: #1E1E1E;
@@ -281,18 +286,18 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .form-select {
     height: 60px; 
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     margin-bottom: 20px;
 }
 
 .form-control {
     height: 60px; 
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     margin-bottom: 20px;
 }
 
 .labelCustom {
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 400;
     font-size: 14px;
     color: #636363;
@@ -322,7 +327,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
   
 .form-check-label-mkt {
-    font-family: "Centrale Sans" !important;
+    font-family: "Centrale Sans Regular" !important;
     color: #595959;
     font-size: 18px !important; 
     padding-left: 15px;
@@ -330,7 +335,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 .form-check-label {
-    font-family: "Centrale Sans" !important;
+    font-family: "Centrale Sans Regular" !important;
     color: #025655;
     font-size: 18px !important; 
     padding-left: 15px;
@@ -344,7 +349,7 @@ input[type="range"]:focus::-moz-range-thumb {
     border-radius: 50px;
     width: 100%;
     height: 50px;
-    font-family: "Centrale Sans";
+    font-family: "Centrale Sans Regular";
     font-weight: 600;
     font-size: 14px;
     margin: 20px 0;

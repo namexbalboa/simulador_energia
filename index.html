@@ -55,7 +55,7 @@
     <form id="formSimulacao">
       <section class="section-top">
         <div class="container rounded d-flex bg-white justify-content-center align-items-center radiusContainer">
-          <div class="col-md-8 d-flex flex-column align-items-center" id="">
+          <div class="col-md-9 d-flex flex-column align-items-center" id="">
             <h2 id="title">Simule sua economia com a Poupp!</h2>
             <hr id="line"/>
             <div class="input-group mb-3 justify-content-evenly align-items-center">
@@ -136,46 +136,56 @@
             </li>
           </ul>
           <hr id="line"/>
-          <img src="./img/logo_poupp.svg" alt="Logo Poupp">
+          <div id="formData" class="d-flex flex-column justify-content-center align-items-center" style="display: flex;">
+            <img src="./img/logo_poupp.svg" alt="Logo Poupp">
+            <h2 id="title">Verifique a disponibilidade!</h2>
+            <label class="centerText" for="estados">Selecione o seu estado.</label>
+            <select class="form-select" id="estados">
+              <option selected>Selecione uma opção</option>
+            </select>
 
-          <h2 id="title">Verifique a disponibilidade!</h2>
-          <label class="centerText" for="estados">Selecione o seu estado.</label>
-          <select class="form-select" id="estados">
-            <option selected>Selecione uma opção</option>
-          </select>
+            <label class="centerText" for="distribuidoras">Selecione uma distribuidora.</label>
+            <select class="form-select" id="distribuidoras">
+              <option selected>Selecione uma opção</option>
+            </select>
+            <label class="substring">A distribuidora é a empresa que aparece na sua fatura de energia.</label>
 
-          <label class="centerText" for="distribuidoras">Selecione uma distribuidora.</label>
-          <select class="form-select" id="distribuidoras">
-            <option selected>Selecione uma opção</option>
-          </select>
-          <label class="substring">A distribuidora é a empresa que aparece na sua fatura de energia.</label>
+            <label class="centerText">Preencha seu e-mail ou telefone</label>
+            <label class="labelCustom" id="basic-addon1">E-mail</label>
+            <input type="text" class="form-control" placeholder="email@exemplo.com.br" id="email" aria-label="Username" aria-describedby="basic-addon1">
 
-          <label class="centerText">Preencha seu e-mail ou telefone</label>
-          <label class="labelCustom" id="basic-addon1">E-mail</label>
-          <input type="text" class="form-control" placeholder="email@exemplo.com.br" id="email" aria-label="Username" aria-describedby="basic-addon1">
+            <label class="labelCustom" id="basic-addon2">Telefone</label>
+            <input type="text" class="form-control" placeholder="(00) 0000 - 0000" aria-label="Username" id="telefone" aria-describedby="basic-addon1" oninput="mascaraTelefone(event)" >
+            
+            <br/>
 
-          <label class="labelCustom" id="basic-addon2">Telefone</label>
-          <input type="text" class="form-control" placeholder="(00) 0000 - 0000" aria-label="Username" id="telefone" aria-describedby="basic-addon1" oninput="mascaraTelefone(event)" >
-          
-          <br/>
-
-          <div class="row">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="checkMarketing">
-              <label class="form-check-label-mkt" for="flexCheckDefault">
-                Aceito receber comunicações da Poupp Energia
-              </label>
+            <div class="row">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkMarketing">
+                <label class="form-check-label-mkt" for="flexCheckDefault">
+                  Aceito receber comunicações da Poupp Energia
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkTermo">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Concordo com a <b><a href="https://poupp.com.br/privacidade" style="color:#015451;">Política de Privacidade</a></b>
+                </label>
+              </div>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="checkTermo">
-              <label class="form-check-label" for="flexCheckChecked">
-                Concordo com a <b><a href="https://poupp.com.br/privacidade" style="color:#015451;">Política de Privacidade</a></b>
-              </label>
-            </div>
+
+            <br/>
+            <button class="btnCustom" id="postButton" type="button">Verificar disponibilidade</button>
           </div>
-
-          <br/>
-          <button class="btnCustom" id="postButton" type="button">Verificar disponibilidade</button>
+          <div id="formSuccess" class="d-flex flex-column justify-content-center align-items-center" style="display: none !important;">
+            <img src="./img/logo_poupp.svg" alt="Logo Poupp">
+            <h2 id="title" class="text-center">Seu desconto na fatura de energia está disponível!</h2>
+          </div>
+          <div id="formError" class="d-flex flex-column justify-content-center align-items-center" style="display: none !important;">
+            <img src="./img/logo_poupp.svg" alt="Logo Poupp">
+            <h2 id="title" class="text-center">Nesse momento não temos disponibilidade para sua região. Avisaremos você assim que isso mudar!</h2>
+          </div>
+          
         </div>
       </section>
     </form>
@@ -375,18 +385,30 @@
           },
           data: JSON.stringify(objPost), 
           success: function(response) { 
-            alert("Simulation successful! Details: " + JSON.stringify(response, null, 2)); 
+            // alert("Simulation successful! Details: " + JSON.stringify(response, null, 2)); 
+            $("#formSuccess").show(); 
+            $("#formData").hide();
+            $("#formError").hide();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 400) { 
               const responseJson = JSON.parse(jqXHR.responseText);
               if (responseJson.errors && responseJson.errors.$) {
-                alert("Invalid input: " + responseJson.errors.$.join(", "));
+                // alert("Invalid input: " + responseJson.errors.$.join(", "));
+                $("#formData").hide();
+                $("#formSuccess").hide(); 
+                $("#formError").show();
               } else {
-                alert("Simulation failed due to invalid input. Please check your data.");
+                // alert("Simulation failed due to invalid input. Please check your data.");
+                $("#formData").hide();
+                $("#formSuccess").hide(); 
+                $("#formError").show();
               }
             } else {
-              alert("An error occurred during the simulation. Please try again later.");
+              // alert("An error occurred during the simulation. Please try again later.");
+              $("#formData").hide();
+              $("#formSuccess").hide(); 
+              $("#formError").show();
             }
           }
         });
