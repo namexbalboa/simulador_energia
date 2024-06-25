@@ -135,8 +135,22 @@
               </div>
             </li>
           </ul>
-          <hr id="line"/>
-          <div id="formData" class="d-flex flex-column justify-content-center align-items-center" style="display: flex;">
+          <button id="formButton" type="button" style="
+            background-color: #00EE80;
+            color: #013837;
+            border: 0px solid transparent;
+            border-radius: 50px;
+            width: 100%;
+            height: 50px;
+            font-family: 'Centrale Sans Regular';
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;"
+          >Verificar disponibilidade</button>
+          <br/>
+          <div id="formData" class="d-flex flex-column justify-content-center align-items-center" style="display: none !important;">
+            <hr id="line"/>
             <img src="./img/logo_poupp.svg" alt="Logo Poupp">
             <h2 id="title">Verifique a disponibilidade!</h2>
             <label class="centerText" for="estados">Selecione o seu estado.</label>
@@ -175,11 +189,25 @@
             </div>
 
             <br/>
-            <button class="btnCustom" id="postButton" type="button">Verificar disponibilidade</button>
+            <button class="btnCustom" id="postButton" type="button" >Verificar disponibilidade</button>
           </div>
           <div id="formSuccess" class="d-flex flex-column justify-content-center align-items-center" style="display: none !important;">
             <img src="./img/logo_poupp.svg" alt="Logo Poupp">
             <h2 id="title" class="text-center">Seu desconto na fatura de energia está disponível!</h2>
+            <button id="redirectButton" type="button" style="
+              background-color: #00EE80;
+              color: #013837;
+              border: 0px solid transparent;
+              border-radius: 50px;
+              width: 100%;
+              height: 50px;
+              font-family: 'Centrale Sans Regular';
+              font-weight: 600;
+              font-size: 16px;
+              margin: 20px 0;
+              cursor: pointer;"
+            >Garantir meu desconto!</button>
+
           </div>
           <div id="formError" class="d-flex flex-column justify-content-center align-items-center" style="display: none !important;">
             <img src="./img/logo_poupp.svg" alt="Logo Poupp">
@@ -202,6 +230,8 @@
       const distribuidoraTarget = document.getElementById("distribuidoras");
       const checkboxMkt = document.getElementById("checkMarketing");
       const checkboxTerm = document.getElementById("checkTermo");
+      const formButton = document.getElementById("formButton");
+      const redirectButton = document.getElementById("redirectButton");
       
       function progressScript() {
         const sliderValue = slider.value;
@@ -237,6 +267,15 @@
           discountMonth.textContent = formatToReais(discValueMonth);
         }
       }
+
+      formButton.addEventListener("click", () => {
+        $("#formData").show();
+        $("#formButton").hide();
+      });
+
+      redirectButton.addEventListener("click", () => {
+        window.location.href = "https://hml-poupp.angellira.com.br/portal";
+      });
 
       function validarEmail(email) {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -386,9 +425,10 @@
           data: JSON.stringify(objPost), 
           success: function(response) { 
             // alert("Simulation successful! Details: " + JSON.stringify(response, null, 2)); 
-            $("#formSuccess").show(); 
+            $("#postButton").hide();
             $("#formData").hide();
             $("#formError").hide();
+            $("#formSuccess").show(); 
           },
           error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 400) { 
@@ -397,18 +437,21 @@
                 // alert("Invalid input: " + responseJson.errors.$.join(", "));
                 $("#formData").hide();
                 $("#formSuccess").hide(); 
+                $("#postButton").hide();
                 $("#formError").show();
               } else {
                 // alert("Simulation failed due to invalid input. Please check your data.");
                 $("#formData").hide();
                 $("#formSuccess").hide(); 
                 $("#formError").show();
+                $("#formSuccess").show(); 
               }
             } else {
               // alert("An error occurred during the simulation. Please try again later.");
               $("#formData").hide();
               $("#formSuccess").hide(); 
               $("#formError").show();
+              $("#formSuccess").show(); 
             }
           }
         });
